@@ -1,16 +1,51 @@
+resources:
+  - name: repository
+    type: git
+    source:
+      uri: git@github.com:shield-9/ci-demo.git
+      branch: master
+
 jobs:
 - name: ci-demo
   plan:
+  - get: repository
+    trigger: true
   - task: build
     config:
       platform: linux
       image_resource:
-        type: registry-image
+        type: docker-image
         source:
-          repository: ubuntu
+          repository: golang
+      inputs:
+        - name: repository
       run:
-        path: bash
+        path: go
         args: 
-        - -c
-        - |
-          echo "Hello, world!"
+        - vet
+  - task: build
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: golang
+      inputs:
+        - name: repository
+      run:
+        path: go
+        args: 
+        - test -v -cover
+  - task: build
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: golang
+      inputs:
+        - name: repository
+      run:
+        path: go
+        args: 
+        - build
