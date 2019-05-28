@@ -2,7 +2,7 @@ resources:
   - name: repository
     type: git
     source:
-      uri: git@github.com:shield-9/ci-demo.git
+      uri: https://github.com/shield-9/ci-demo.git
       branch: master
 
 jobs:
@@ -10,7 +10,7 @@ jobs:
   plan:
   - get: repository
     trigger: true
-  - task: build
+  - task: vet
     config:
       platform: linux
       image_resource:
@@ -23,7 +23,7 @@ jobs:
         path: go
         args: 
         - vet
-  - task: build
+  - task: test
     config:
       platform: linux
       image_resource:
