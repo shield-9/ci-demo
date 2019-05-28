@@ -20,6 +20,7 @@ jobs:
       inputs:
         - name: repository
       run:
+        dir: repository
         path: go
         args: 
         - vet
@@ -33,6 +34,7 @@ jobs:
       inputs:
         - name: repository
       run:
+        dir: repository
         path: go
         args: 
         - test -v -cover
@@ -46,6 +48,7 @@ jobs:
       inputs:
         - name: repository
       run:
+        dir: repository
         path: go
         args: 
         - build
