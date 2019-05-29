@@ -7,7 +7,6 @@ func main() {
 }
 
 // HelloWorld is a function that returns a string "hello world".
-// TODO: Refactor
 func HelloWorld() string {
 	return "hello world"
 }
